@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>😂 Random Joke Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>😂 Random Joke Generator</h1>
+        <div class="joke-box" id="joke-box">Click the button to get a joke!</div>
+        <button onclick="getJoke()">Tell me a joke!</button>
+    </div>
+
+    <script>
+        async function getJoke() {
+            const res = await fetch('/joke');
+            const data = await res.json();
+            const jokeBox = document.getElementById('joke-box');
+            jokeBox.classList.remove('fade-in');
+            void jokeBox.offsetWidth; // trigger reflow
+            jokeBox.textContent = data.joke;
+            jokeBox.classList.add('fade-in');
+        }
+    </script>
+</body>
+</html>
